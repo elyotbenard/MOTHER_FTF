@@ -2,29 +2,178 @@
 <html lang="fr">
 <head>
   <meta charset="UTF-8">
-  <title>Carte des Festivals de Tatouage</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MOTHER FTF - Map Of Tattoo Happenings Everywhere in Republique</title>
   
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
   
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Pirata+One&family=UnifrakturMaguntia&display=swap" rel="stylesheet">
+
   <style>
-    body { margin: 0; padding: 0; background-color: #1169c2; }
-    #map { width: 100vw; height: 100vh; }
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: #0a0a0a;
+      font-family: Arial, sans-serif;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      padding: 12px;
+    }
+
+    .site-frame {
+      border: 3px solid #b30000;
+      box-shadow: 0 0 15px rgba(179, 0, 0, 0.5), inset 0 0 20px rgba(0, 0, 0, 0.9);
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      background-color: #000;
+      border-radius: 8px;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .header-container {
+      position: absolute;
+      top: 15px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 1000;
+      width: 90%;
+      max-width: 680px;
+      height: 95px;
+      filter: drop-shadow(0 8px 15px rgba(0, 0, 0, 0.9));
+    }
+
+    .banner-svg {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 1;
+    }
+
+    .header-content {
+      position: relative;
+      z-index: 2;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 0 60px;
+      text-align: center;
+    }
+
+    .title-main {
+      font-family: 'Pirata One', 'UnifrakturMaguntia', cursive;
+      color: #ffffff;
+      font-size: 2.8rem;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      
+      line-height: 1;
+    }
+
+    .title-sub {
+      color: #cccccc;
+      font-size: 0.68rem;
+      font-family: 'Georgia', serif;
+      font-style: italic;
+      letter-spacing: 1px;
+      margin-top: 2px;
+      text-transform: uppercase;
+    }
+
+    #map {
+      flex: 1;
+      width: 100%;
+      height: 100%;
+    }
+
+    .leaflet-popup-content-wrapper {
+      background: #121212;
+      color: #fff;
+      border: 2px solid #b30000;
+      border-radius: 6px;
+      font-family: Arial, sans-serif;
+      box-shadow: 0 0 10px rgba(0,0,0,0.8);
+      padding: 0;
+      overflow: hidden;
+    }
+    .leaflet-popup-content {
+      margin: 12px;
+      line-height: 1.4;
+    }
+    .leaflet-popup-tip {
+      background: #121212;
+      border: 1px solid #b30000;
+    }
+
+    .popup-img {
+      width: 100%;
+      max-height: 140px;
+      object-fit: cover;
+      border-radius: 4px;
+      border: 1px solid #333;
+      margin-bottom: 8px;
+      display: block;
+    }
   </style>
 </head>
 <body>
 
-  <div id="map"></div>
+  <div class="site-frame">
+    <div class="header-container">
+      <svg class="banner-svg" viewBox="0 0 680 95" preserveAspectRatio="none">
+        <defs>
+          <radialGradient id="bannerGrad" cx="50%" cy="50%" r="50%">
+            <stop offset="0%" stop-color="#1a0000" />
+            <stop offset="100%" stop-color="#050505" />
+          </radialGradient>
+        </defs>
+        <path d="M 0,47.5 
+                 C 20,20 35,0 65,0 
+                 L 615,0 
+                 C 645,0 660,20 680,47.5 
+                 C 660,75 645,95 615,95 
+                 L 65,95 
+                 C 35,95 20,75 0,47.5 Z" 
+              fill="url(#bannerGrad)" 
+              stroke="#b30000" 
+              stroke-width="3" />
+      </svg>
+
+      <header class="header-content">
+        <h1 class="title-main">MOTHER FTF</h1>
+        <p class="title-sub">Map Of Tattoo Happening & Event Regions - French Tatoo Festival</p>
+      </header>
+    </div>
+
+    <div id="map"></div>
+  </div>
 
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 
   <script>
-    const map = L.map('map').setView([46.603354, 1.888334], 5);
+    const map = L.map('map', {
+      zoomControl: false
+    }).setView([46.603354, 1.888334], 6);
+
+    L.control.zoom({ position: 'bottomright' }).addTo(map);
 
     L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png?key=cb1_3q57_1_2ae0965728892381462e5f84', {
       maxZoom: 15,
-      minZoom: 6,
+      minZoom: 5,
       subdomains: 'abcd',
-      attribution: '© OpenStreetMap © CARTO'
+      attribution: '© OpenStreetMap contributors © CARTO'
     }).addTo(map);
 
     fetch('festivals.json')
@@ -35,9 +184,15 @@
           const lng = parseFloat(festival.lng);
 
           if (!isNaN(lat) && !isNaN(lng)) {
-            let popup = `<b>${festival.nom || 'Festival'}</b>`;
+            let popup = '';
+            q
+            if (festival.image) {
+              popup += `<img src="${festival.image}" alt="${festival.nom}" class="popup-img">`;
+            }
+            
+            popup += `<b style="color: #b30000; font-size: 1.1em;">${festival.nom || 'Festival'}</b>`;
             if (festival.ville) popup += `<br>${festival.ville}`;
-            if (festival.date) popup += `<br><i>${festival.date}</i>`;
+            if (festival.date) popup += `<br><i style="color: #bbb;">${festival.date}</i>`;
 
             L.marker([lat, lng])
               .addTo(map)
@@ -45,7 +200,7 @@
           }
         });
       })
-      .catch(err => console.error("Erreur de chargement :", err));
+      .catch(err => console.error("Erreur de chargement du JSON :", err));
   </script>
 
 </body>
