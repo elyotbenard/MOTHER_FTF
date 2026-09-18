@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>MOTHER FTF - Map Of Tattoo Happenings Everywhere in Republique</title>
+  <title>Map Of Tattoo Happening & Event Regions - French Tatoo Festival</title>
   
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
   
@@ -78,7 +78,6 @@
       font-size: 2.8rem;
       letter-spacing: 3px;
       text-transform: uppercase;
-      
       line-height: 1;
     }
 
@@ -125,8 +124,26 @@
       border: 1px solid #333;
       margin-bottom: 8px;
       display: block;
+      transition: transform 0.2s ease, filter 0.2s ease;
+    }
+
+    a .popup-img:hover {
+      transform: scale(1.02);
+      filter: brightness(1.1);
+    }
+
+    .popup-link {
+      color: #b30000;
+      text-decoration: none;
+      font-weight: bold;
+      font-size: 1.1em;
+    }
+    .popup-link:hover {
+      text-decoration: underline;
+      color: #ff3333;
     }
   </style>
+
 </head>
 <body>
 
@@ -169,7 +186,7 @@
 
     L.control.zoom({ position: 'bottomright' }).addTo(map);
 
-    L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png?key=cb1_3q57_1_2ae0965728892381462e5f84', {
+    L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager_/{z}/{x}/{y}{r}.png?key=cb1_3q57_1_2ae0965728892381462e5f84', {
       maxZoom: 15,
       minZoom: 5,
       subdomains: 'abcd',
@@ -185,12 +202,20 @@
 
           if (!isNaN(lat) && !isNaN(lng)) {
             let popup = '';
-            q
+        
             if (festival.image) {
-              popup += `<img src="${festival.image}" alt="${festival.nom}" class="popup-img">`;
+              if (festival.link) {
+                popup += `<a href="${festival.link}" target="_blank" rel="noopener noreferrer"><img src="${festival.image}" alt="${festival.nom}" class="popup-img"></a>`;
+              } else {
+                popup += `<img src="${festival.image}" alt="${festival.nom}" class="popup-img">`;
+              }
             }
             
+            
+            
             popup += `<b style="color: #b30000; font-size: 1.1em;">${festival.nom || 'Festival'}</b>`;
+            
+
             if (festival.ville) popup += `<br>${festival.ville}`;
             if (festival.date) popup += `<br><i style="color: #bbb;">${festival.date}</i>`;
 
