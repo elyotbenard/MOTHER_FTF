@@ -1,16 +1,164 @@
 [
   {
-    "nom": "Paris Tattoo Convention",
-    "ville": "Paris",
-    "date": "12-14 Octobre",
-    "lat": 48.8925,
-    "lng": 2.3897
+    "nom": "TEMPLATE",
+    "ville": "Angers",
+    "date": "3-4 Octobre 2026",
+    "lat": 0,
+    "lng": 0,
+    "image": "",
+    "link": ""
   },
   {
-    "nom": "Le Mans Tattoo Show",
-    "ville": "Le Mans",
-    "date": "5-6 Novembre",
-    "lat": 48.0061,
-    "lng": 0.1996
+    "nom": "Angers Tattoo Fest",
+    "ville": "Angers",
+    "date": "3-4 Octobre 2026",
+    "lat": 47.467,
+    "lng": 0.5525,
+    "image": "https://imgs.search.brave.com/YoZ8DTl9wJXq8U2vmqIgW1NeKzwnCYmbJNeiCUP-Tf8/rs:fit:500:0:1:0/g:ce/aHR0cHM6Ly80OS5h/Z2VuZGFjdWx0dXJl/bC5mci9tZWRpYS9l/Y0tva1BVWmRtRGpP/RTJvdjY5Vkp3L3N0/b3JhZ2UvMjAyNi82/YTU0YjNjODVkNzM5/LndlYnAvZml0PWNv/dmVyLHc9MzU1LGg9/MzgxLGY9YXV0byxn/PWF1dG8",
+    "link": "https://www.tattoo-fest.com/"
+  },
+  {
+    "nom": "International LilleTattoo Convention",
+    "ville": "Lille",
+    "date": "22-23-24 Janvier 2027",
+    "lat": 50.63,
+    "lng": 3.058,
+    "image": "",
+    "link": "https://lille-tattoo-convention.com/"
+  },
+  {
+    "nom": "Haguenau Tattoo Convention",
+    "ville": "Hagenau",
+    "date": "18-19 Septembre 2026",
+    "lat": 48.817,
+    "lng": 7.78,
+    "image": "https://cdntattoofilter.com/event/23559/l.jpg",
+    "link": "https://www.instagram.com/haguenau_tattoo_convention/"
+  },
+  {
+    "nom": "Douvaine Tattoo Show",
+    "ville": "Douvaine",
+    "date": "26-27 Septembre 2026",
+    "lat": 46.3,
+    "lng": 6.3,
+    "image": "https://cdntattoofilter.com/event/24059/s.jpg",
+    "link": "https://www.instagram.com/douvaine.tattooshow/"
+  },
+  {
+    "nom": "7ème Univers Tattoo Convention",
+    "ville": "La Motte-de-Galaure",
+    "date": "18-20 Septembre 2026",
+    "lat": 45.1969,
+    "lng": 4.9622,
+    "image": "https://cdntattoofilter.com/event/24402/s.jpg",
+    "link": ""
+  },
+  {
+    "nom": "10ème Perigueux Tattoo Expo",
+    "ville": "Marsac-sur-l'Isle",
+    "date": "2-4 Octobre 2026",
+    "lat": 45.1883,
+    "lng": 0.6547,
+    "image": "https://cdntattoofilter.com/event/24292/s.jpg",
+    "link": "https://www.instagram.com/perigueuxtattooexpo/?hl=fr"
+  },
+  {
+    "nom": "Bret Ink Tattoo Convention",
+    "ville": "Brétigny-sur-Orge",
+    "date": "2-4 Octobre 2026",
+    "lat": 48.6081,
+    "lng": 2.3061,
+    "image": "https://cdntattoofilter.com/event/24290/s.jpg",
+    "link": ""
+  },
+  {
+    "nom": "12éme Convention Tatouage de Bourges",
+    "ville": "Bourges",
+    "date": "3-4 Octobre 2026",
+    "lat": 47.081,
+    "lng": 2.3988,
+    "image": "https://cdntattoofilter.com/event/24082/s.jpg",
+    "link": ""
+  },
+  {
+    "nom": "Saint-Lô Tattoo Convention 2026",
+    "ville": "Saint-Lô",
+    "date": "3-4 Octobre 2026",
+    "lat": 49.1158,
+    "lng": -1.0903,
+    "image": "https://cdntattoofilter.com/event/24084/s.jpg",
+    "link": "https://unidivers.fr/event/saint-lo-tattoo-convention-saint-lo-manche-2026-10-03/"
+  },
+  {
+    "nom": "La Maison d'Encre 2026",
+    "ville": "Auch",
+    "date": "3-4 Octobre 2026",
+    "lat": 43.6464,
+    "lng": 0.5857,
+    "image": "https://cdntattoofilter.com/event/24299/s.jpg",
+    "link": ""
+  },
+  {
+    "nom": "Salon Du Tatouage De Saint Quentin En Yvelines 2026",
+    "ville": "Montigny-le-Bretonneux",
+    "date": "3-4 Octobre 2026",
+    "lat": 48.7711,
+    "lng": 2.0441,
+    "image": "https://cdntattoofilter.com/event/23493/s.jpg",
+    "link": "https://www.facebook.com/paris13tattooexpo/"
+  },
+  {
+    "nom": "Nancy Ink Tattoo Show 2026",
+    "ville": "Nancy",
+    "date": "3-4 Octobre 2026",
+    "lat": 48.6921,
+    "lng": 6.1844,
+    "image": "https://cdntattoofilter.com/event/24305/s.jpg",
+    "link": "https://www.nancyinktattoo.fr/"
+  },
+  {
+    "nom": "2nd Gerardmer Tattoo Convention",
+    "ville": "Gérardmer",
+    "date": "3-4 Octobre 2026",
+    "lat": 48.0728,
+    "lng": 6.8789,
+    "image": "https://cdntattoofilter.com/event/23495/s.jpg",
+    "link": ""
+  },  
+  {
+    "nom": "Magie des Ombres Tattoo Show 2026",
+    "ville": "Lanvollon",
+    "date": "10-11 Octobre 2026",
+    "lat": 48.63,
+    "lng": -2.9858,
+    "image": "https://cdntattoofilter.com/event/23469/s.jpg",
+    "link": "https://www.helloasso.com/associations/magie-des-ombres"
+  },
+  {
+    "nom": "Barentin Tattoo Fest 2026",
+    "ville": "Barentin",
+    "date": "10-11 Octobre 2026",
+    "lat": 49.5458,
+    "lng": 0.9547,
+    "image": "https://cdntattoofilter.com/event/24321/s.jpg",
+    "link": ""
+  },
+  {
+    "nom": "TEMPLATE",
+    "ville": "Angers",
+    "date": "3-4 Octobre 2026",
+    "lat": 0,
+    "lng": 0,
+    "image": "",
+    "link": ""
+  },
+  {
+    "nom": "International Metz Tattoo Festival",
+    "ville": "Metz",
+    "date": "6-7 Septembre",
+    "lat": 49.11,
+    "lng": 6.17,
+    "image": "https://imgs.search.brave.com/SmWgbri_-wVnId_fra2vY_Igr0-V97wvcq34lBItO8U/rs:fit:500:0:1:0/g:ce/aHR0cHM6Ly93d3cu/YmlsbGV0d2ViLmZy/L2ZpbGVzL3BhZ2Uv/dGh1bWIvbWV0ei10/YXR0b28tZmVzdGl2/YWwtMjAyNS5qcGc_/dj0xNzQzMjQ2NTAw",
+    "link": "https://metztattoofestival.com/"
   }
 ]
