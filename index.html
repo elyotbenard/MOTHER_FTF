@@ -6,6 +6,9 @@
   <title>Map Of Tattoo Happening & Event Regions - French Tatoo Festival</title>
   
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <!-- CSS du MarkerCluster + Spiderfier -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.5.3/dist/MarkerCluster.css" />
+  <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.5.3/dist/MarkerCluster.Default.css" />
   
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -144,6 +147,22 @@
       text-decoration: underline;
       color: #ff3333;
     }
+
+    .marker-cluster-small,
+    .marker-cluster-medium,
+    .marker-cluster-large {
+      background-color: rgba(179, 0, 0, 0.4) !important;
+    }
+    .marker-cluster-small div,
+    .marker-cluster-medium div,
+    .marker-cluster-large div {
+      background-color: #b30000 !important;
+      color: #ffffff !important;
+      border: 2px solid rgba(179, 0, 0, 0.4) !important;
+      font-weight: bold;
+      font-family: Arial, sans-serif;
+      box-shadow: 0 0 8px rgba(179, 0, 0, 0.4);
+    }
   </style>
 
 </head>
@@ -180,6 +199,7 @@
   </div>
 
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script src="https://unpkg.com/leaflet.markercluster@1.5.3/dist/leaflet.markercluster.js"></script>
 
   <script>
     const map = L.map('map', {
@@ -195,39 +215,68 @@
       attribution: '© OpenStreetMap contributors © CARTO'
     }).addTo(map);
 
+    const markersGroup = L.markerClusterGroup({
+      spiderfyOnMaxZoom: true,
+      showCoverageOnHover: false,
+      zoomToBoundsOnClick: true,
+      spiderfyDistanceMultiplier: 1.5,
+      maxClusterRadius: 20
+    });
+
+    const redIcon = L.icon({
+      iconUrl: 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 36" width="24" height="36"><path fill="%23b30000" stroke="%23ffffff" stroke-width="1.5" d="M12 0C5.37 0 0 5.37 0 12c0 9 12 24 12 24s12-15 12-24c0-6.63-5.37-12-12-12zm0 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5z"/></svg>',
+      iconSize: [25, 41],
+      iconAnchor: [12, 41],
+      popupAnchor: [1, -34]
+    });
+
+    //passéas
+    const greyIcon = L.icon({
+      iconUrl: 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 36" width="24" height="36"><path fill="%23666666" stroke="%23ffffff" stroke-width="1.5" d="M12 0C5.37 0 0 5.37 0 12c0 9 12 24 12 24s12-15 12-24c0-6.63-5.37-12-12-12zm0 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5z"/></svg>',
+      iconSize: [25, 41],
+      iconAnchor: [12, 41],
+      popupAnchor: [1, -34]
+    });
+
     fetch('festivals.xlsx')
       .then(res => res.arrayBuffer())
       .then(buffer => {
         const workbook = XLSX.read(buffer, { type: 'array' });
         const firstSheetName = workbook.SheetNames[0];
         const worksheet = workbook.Sheets[firstSheetName];
-        const data = XLSX.utils.sheet_to_json(worksheet);
+        
+        const data = XLSX.utils.sheet_to_json(worksheet, { header: "A" });
+        const rows = data.slice(1);
 
-        data.forEach(festival => {
-          const lat = parseFloat(festival.lat);
-          const lng = parseFloat(festival.lng);
+        rows.forEach(festival => {
+          const lat = parseFloat(festival.A);
+          const lng = parseFloat(festival.B);
 
           if (!isNaN(lat) && !isNaN(lng)) {
             let popup = '';
         
-            if (festival.image) {
-              if (festival.link) {
-                popup += `<a href="${festival.link}" target="_blank" rel="noopener noreferrer"><img src="${festival.image}" alt="${festival.nom}" class="popup-img"></a>`;
+            if (festival.F) {
+              if (festival.G) {
+                popup += `<a href="${festival.G}" target="_blank" rel="noopener noreferrer"><img src="${festival.F}" alt="${festival.C || ''}" class="popup-img"></a>`;
               } else {
-                popup += `<img src="${festival.image}" alt="${festival.nom}" class="popup-img">`;
+                popup += `<img src="${festival.F}" alt="${festival.C || ''}" class="popup-img">`;
               }
             }
             
-            popup += `<b style="color: #b30000; font-size: 1.1em;">${festival.nom || 'Festival'}</b>`;
+            popup += `<b style="color: #b30000; font-size: 1.1em;">${festival.C || 'Festival'}</b>`;
 
-            if (festival.ville) popup += `<br>${festival.ville}`;
-            if (festival.date) popup += `<br><i style="color: #bbb;">${festival.date}</i>`;
+            if (festival.D) popup += `<br>${festival.D}`;
+            if (festival.E) popup += `<br><i style="color: #bbb;">${festival.E}</i>`;
 
-            L.marker([lat, lng])
-              .addTo(map)
-              .bindPopup(popup);
+            const statusH = String(festival.H).trim();
+            const selectedIcon = (statusH === '1') ? greyIcon : redIcon;
+
+            const marker = L.marker([lat, lng], { icon: selectedIcon }).bindPopup(popup);
+            markersGroup.addLayer(marker);
           }
         });
+
+        map.addLayer(markersGroup);
       })
       .catch(err => console.error("Erreur de chargement du fichier Excel :", err));
   </script>
