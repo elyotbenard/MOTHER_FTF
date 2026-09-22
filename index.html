@@ -11,6 +11,8 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Pirata+One&family=UnifrakturMaguntia&display=swap" rel="stylesheet">
 
+  <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
+
   <style>
     * {
       box-sizing: border-box;
@@ -193,9 +195,14 @@
       attribution: '© OpenStreetMap contributors © CARTO'
     }).addTo(map);
 
-    fetch('festivals.json')
-      .then(res => res.json())
-      .then(data => {
+    fetch('festivals.xlsx')
+      .then(res => res.arrayBuffer())
+      .then(buffer => {
+        const workbook = XLSX.read(buffer, { type: 'array' });
+        const firstSheetName = workbook.SheetNames[0];
+        const worksheet = workbook.Sheets[firstSheetName];
+        const data = XLSX.utils.sheet_to_json(worksheet);
+
         data.forEach(festival => {
           const lat = parseFloat(festival.lat);
           const lng = parseFloat(festival.lng);
@@ -211,10 +218,7 @@
               }
             }
             
-            
-            
             popup += `<b style="color: #b30000; font-size: 1.1em;">${festival.nom || 'Festival'}</b>`;
-            
 
             if (festival.ville) popup += `<br>${festival.ville}`;
             if (festival.date) popup += `<br><i style="color: #bbb;">${festival.date}</i>`;
@@ -225,7 +229,7 @@
           }
         });
       })
-      .catch(err => console.error("Erreur de chargement du JSON :", err));
+      .catch(err => console.error("Erreur de chargement du fichier Excel :", err));
   </script>
 
 </body>
